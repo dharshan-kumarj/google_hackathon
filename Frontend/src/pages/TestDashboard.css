@@ -1,0 +1,163 @@
+/* Test Dashboard Container */
+.test-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Styles */
+.test-dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.test-dashboard-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.test-dashboard-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Grid Container */
+.test-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Grid Items */
+.test-grid-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.test-grid-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Icons */
+.test-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Grid Item Titles */
+.test-grid-item h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+/* Grid Item Descriptions */
+.test-grid-item p {
+  color: #7f8c8d;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+/* Action Buttons */
+.test-action-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.test-action-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Specific Grid Item Colors */
+.test-grid-item.timetable {
+  border-left: 5px solid #3498db;
+}
+
+.test-grid-item.wellness {
+  border-left: 5px solid #2ecc71;
+}
+
+.test-grid-item.learning {
+  border-left: 5px solid #e74c3c;
+}
+
+.test-grid-item.try-online {
+  border-left: 5px solid #f39c12;
+}
+
+.test-grid-item.timetable .test-action-btn {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.test-grid-item.wellness .test-action-btn {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.test-grid-item.learning .test-action-btn {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.test-grid-item.try-online .test-action-btn {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .test-dashboard {
+    padding: 1rem;
+  }
+  
+  .test-dashboard-header h1 {
+    font-size: 2rem;
+  }
+  
+  .test-grid-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .test-grid-item {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .test-dashboard-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .test-icon {
+    font-size: 2.5rem;
+  }
+  
+  .test-grid-item h3 {
+    font-size: 1.3rem;
+  }
+}
