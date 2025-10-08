@@ -42,7 +42,7 @@ function App() {
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
           textAlign: 'center'
         }}>
-          <h1 style={{ marginBottom: '1rem', color: '#333' }}>Welcome to Learning Hub</h1>
+          <h1 style={{ marginBottom: '1rem', color: '#333' }}>Welcome to StudyBuddy</h1>
           <h2 style={{ marginBottom: '2rem', color: '#666', fontWeight: '400' }}>Please sign in to continue</h2>
           {error && <p style={{ color: 'red', marginBottom: '1rem' }}>Error: {error}</p>}
           <button 
