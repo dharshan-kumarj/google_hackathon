@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://studybuddy-backend-du42.onrender.com';
 
 interface User {
   id: string;
