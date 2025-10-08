@@ -25,23 +25,25 @@ const TimetableGeneration: React.FC = () => {
       <button 
         onClick={() => navigate('/')}
         className="back-button"
+        aria-label="Back to Dashboard"
+        tabIndex={0}
       >
         ← Back to Dashboard
       </button>
       <div className="timetable-content">
         <h1 className="page-title">Generate Your Timetable</h1>
         <p className="page-subtitle">
-          Describe your schedule preferences, subjects, and available time slots
+         Enter your subjects, preferred study times, and any special requests for a personalized timetable.
         </p>
         
         <form onSubmit={handleSubmit} className="input-form">
-          <textarea
-            className="input-box"
-            placeholder="Example: I need a timetable for Math, Physics, Chemistry, and English. I'm free from 9 AM to 5 PM on weekdays. I prefer 1-hour study sessions with 15-minute breaks..."
-            value={timetableInput}
-            onChange={(e) => setTimetableInput(e.target.value)}
-            rows={8}
-          />
+            <textarea
+              className="input-box"
+              placeholder="List your subjects, available times, and preferences. Example: 'Math, Physics, Chemistry. Free 9am-5pm weekdays. Prefer 1-hour sessions, 15-min breaks.'"
+              value={timetableInput}
+              onChange={(e) => setTimetableInput(e.target.value)}
+              rows={8}
+            />
           
           <button 
             type="submit" 

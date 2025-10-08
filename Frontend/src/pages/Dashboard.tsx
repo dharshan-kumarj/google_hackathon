@@ -41,14 +41,18 @@ const Dashboard: React.FC = () => {
       <h1 className="dashboard-title">Welcome to Your Learning Hub</h1>
       <div className="dashboard-cards">
         {dashboardCards.map((card) => (
-          <div
-            key={card.id}
-            className="dashboard-card"
-            onClick={() => navigate(card.path)}
-          >
-            <div className="card-icon">{card.icon}</div>
-            <h2 className="card-title">{card.title}</h2>
-            <p className="card-description">{card.description}</p>
+            <div
+              key={card.id}
+              className="dashboard-card"
+              onClick={() => navigate(card.path)}
+              tabIndex={0}
+              role="button"
+              aria-label={card.title}
+              onKeyPress={(e) => e.key === 'Enter' && navigate(card.path)}
+            >
+              <div className="card-icon">{card.icon}</div>
+              <h2 className="card-title">{card.title}</h2>
+              <p className="card-description">{card.description}</p>
           </div>
         ))}
       </div>

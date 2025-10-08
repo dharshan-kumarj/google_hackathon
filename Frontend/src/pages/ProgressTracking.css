@@ -41,11 +41,49 @@
 }
 
 .page-title {
-  font-size: 2.5rem;
-  color: #333;
+  font-size: 2.2rem;
+  color: #fcb69f;
   margin-bottom: 1rem;
   text-align: center;
   font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.progress-placeholder {
+  background: #fff7f0;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  color: #fcb69f;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 8px rgba(252,182,159,0.08);
+}
+
+@media (max-width: 900px) {
+  .progress-content {
+    padding: 2rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .progress-content {
+    padding: 1rem;
+  }
+  .page-title {
+    font-size: 1.5rem;
+  }
+  .progress-placeholder {
+    font-size: 1rem;
+    padding: 1rem;
+  }
 }
 
 .page-subtitle {
