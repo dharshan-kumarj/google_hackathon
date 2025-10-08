@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const userName = "Alex"; // This should come from your auth context
+  const userName = ""; // This should come from your auth context
   const userStars = 4.5;
   const studyHours = 2.5;
   const focusScore = 85;
