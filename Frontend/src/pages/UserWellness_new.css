@@ -1,0 +1,90 @@
+/* User Wellness Bootstrap Styles */
+.wellness-container {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.wellness-container::before,
+.wellness-container::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.wellness-container::before {
+  top: -10%;
+  left: -5%;
+  width: 450px;
+  height: 450px;
+}
+
+.wellness-container::after {
+  bottom: -10%;
+  right: -5%;
+  width: 400px;
+  height: 400px;
+}
+
+.wellness-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(20px);
+  border-radius: 24px !important;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wellness-icon {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(1); }
+}
+
+.feature-preview {
+  background: #f8f9fa;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.feature-preview:hover {
+  background: white;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wellness-container .btn-light {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.wellness-container .btn-light:hover {
+  background: white !important;
+  transform: translateX(-4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wellness-card .card-body {
+    padding: 2rem 1.5rem !important;
+  }
+  .wellness-icon i {
+    font-size: 3rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .wellness-card .card-body {
+    padding: 1.5rem 1rem !important;
+  }
+}
