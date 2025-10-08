@@ -1,33 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useGoogleAuth } from './hooks/useGoogleAuth'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { user, loading, error, login, logout, isAuthenticated } = useGoogleAuth()
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div style={{ padding: '2rem' }}>
+        <h1>Google OAuth Example</h1>
+        
+        {loading && <p>Loading...</p>}
+        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+        
+        {!isAuthenticated ? (
+          <div className="card">
+            <h2>Please sign in</h2>
+            <button onClick={login} disabled={loading}>
+              Sign in with Google
+            </button>
+          </div>
+        ) : (
+          <div className="card">
+            <h2>Welcome, {user?.name}!</h2>
+            <div style={{ marginTop: '1rem' }}>
+              {user?.picture && (
+                <img 
+                  src={user.picture} 
+                  alt={user.name} 
+                  style={{ borderRadius: '50%', width: '100px', height: '100px' }}
+                />
+              )}
+              <div style={{ marginTop: '1rem', textAlign: 'left' }}>
+                <p><strong>Email:</strong> {user?.email}</p>
+                <p><strong>ID:</strong> {user?.id}</p>
+                <p><strong>Verified:</strong> {user?.verified_email ? 'Yes' : 'No'}</p>
+              </div>
+              <button onClick={logout} style={{ marginTop: '1rem' }}>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

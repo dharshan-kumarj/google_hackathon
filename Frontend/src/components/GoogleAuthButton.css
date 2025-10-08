@@ -1,0 +1,121 @@
+.google-auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: white;
+  color: #444;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.google-btn:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-color: #c6c6c6;
+}
+
+.google-btn:active {
+  background-color: #f8f8f8;
+}
+
+.google-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.profile-picture {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #4285F4;
+}
+
+.user-info {
+  flex: 1;
+  text-align: left;
+}
+
+.user-info h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.user-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.verified-badge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #34A853;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.logout-btn {
+  padding: 0.5rem 1.5rem;
+  background-color: #ea4335;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #d33828;
+}
+
+.loading, .error {
+  padding: 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.loading {
+  background-color: #e8f0fe;
+  color: #1967d2;
+}
+
+.error {
+  background-color: #fce8e6;
+  color: #c5221f;
+  margin-bottom: 1rem;
+}
