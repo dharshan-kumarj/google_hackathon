@@ -10,16 +10,6 @@ interface User {
   verified_email: boolean;
 }
 
-interface AuthResponse {
-  success: boolean;
-  user: User;
-  tokens: {
-    access_token: string;
-    refresh_token?: string;
-    expires_in: number;
-  };
-}
-
 export const useGoogleAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -36,49 +26,41 @@ export const useGoogleAuth = () => {
       setUser(JSON.parse(storedUser));
     }
 
-    // Handle OAuth callback
+    // Handle OAuth callback from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+    const accessTokenParam = urlParams.get('access_token');
+    const errorParam = urlParams.get('error');
     
-    if (code) {
-      handleCallback(code);
-    }
-  }, []);
-
-  const handleCallback = async (code: string) => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(`${API_URL}/auth/google/callback`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ code }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to authenticate with Google');
-      }
-
-      const data: AuthResponse = await response.json();
-      
-      // Store tokens and user info
-      localStorage.setItem('google_access_token', data.tokens.access_token);
-      localStorage.setItem('google_user', JSON.stringify(data.user));
-      
-      setAccessToken(data.tokens.access_token);
-      setUser(data.user);
-
+    if (errorParam) {
+      setError(decodeURIComponent(errorParam));
       // Clean up URL
       window.history.replaceState({}, document.title, window.location.pathname);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Authentication failed');
-    } finally {
-      setLoading(false);
+    } else if (accessTokenParam) {
+      // Extract user data from URL params
+      const user: User = {
+        id: urlParams.get('user_id') || '',
+        email: urlParams.get('user_email') || '',
+        name: urlParams.get('user_name') || '',
+        picture: urlParams.get('user_picture') || '',
+        verified_email: true,
+      };
+      
+      const refreshToken = urlParams.get('refresh_token') || '';
+      
+      // Store tokens and user info
+      localStorage.setItem('google_access_token', accessTokenParam);
+      localStorage.setItem('google_user', JSON.stringify(user));
+      if (refreshToken) {
+        localStorage.setItem('google_refresh_token', refreshToken);
+      }
+      
+      setAccessToken(accessTokenParam);
+      setUser(user);
+      
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
-  };
+  }, []);
 
   const login = async () => {
     setLoading(true);
