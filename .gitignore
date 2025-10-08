@@ -70,6 +70,15 @@ pnpm-debug.log*
 chroma_db/
 .chroma/
 uploads/
+data_level0.bin
+header.bin
+length.bin
+link_lists.bin
+
+# Rag Specific
+data/chroma_db/
+data copy/
+__pycache__/main.cpython-*.pyc
 
 # Temporary files
 *.tmp
