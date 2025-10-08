@@ -5,11 +5,25 @@ import TimetableGeneration from './pages/TimetableGeneration'
 import LearningResources from './pages/LearningResources'
 import UserWellness from './pages/UserWellness'
 import ProgressTracking from './pages/ProgressTracking'
+import TestDashboard from './pages/TestDashboard'
 import './App.css'
 
 function App() {
   const { loading, error, login, logout, isAuthenticated } = useGoogleAuth()
 
+  return (
+    <Router>
+      {/* Special route for test page - accessible without authentication */}
+      <Routes>
+        <Route path="/test" element={<TestDashboard />} />
+        <Route path="/*" element={<AuthenticatedApp loading={loading} error={error} login={login} logout={logout} isAuthenticated={isAuthenticated} />} />
+      </Routes>
+    </Router>
+  )
+}
+
+// Separate component for authenticated routes
+function AuthenticatedApp({ loading, error, login, logout, isAuthenticated }: any) {
   // Show loading state
   if (loading) {
     return (
@@ -81,48 +95,46 @@ function App() {
 
   // Show main app with routing if authenticated
   return (
-    <Router>
-      <div style={{ position: 'relative' }}>
-        {/* Logout button - always visible */}
-        <button 
-          onClick={logout}
-          style={{
-            position: 'fixed',
-            top: '1rem',
-            right: '1rem',
-            padding: '0.75rem 1.5rem',
-            background: 'rgba(255, 255, 255, 0.2)',
-            backdropFilter: 'blur(10px)',
-            border: '2px solid white',
-            borderRadius: '12px',
-            color: 'white',
-            fontWeight: '600',
-            cursor: 'pointer',
-            zIndex: 1000,
-            transition: 'all 0.3s ease'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'white'
-            e.currentTarget.style.color = '#667eea'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'
-            e.currentTarget.style.color = 'white'
-          }}
-        >
-          Sign Out
-        </button>
+    <div style={{ position: 'relative' }}>
+      {/* Logout button - always visible */}
+      <button 
+        onClick={logout}
+        style={{
+          position: 'fixed',
+          top: '1rem',
+          right: '1rem',
+          padding: '0.75rem 1.5rem',
+          background: 'rgba(255, 255, 255, 0.2)',
+          backdropFilter: 'blur(10px)',
+          border: '2px solid white',
+          borderRadius: '12px',
+          color: 'white',
+          fontWeight: '600',
+          cursor: 'pointer',
+          zIndex: 1000,
+          transition: 'all 0.3s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'white'
+          e.currentTarget.style.color = '#667eea'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'
+          e.currentTarget.style.color = 'white'
+        }}
+      >
+        Sign Out
+      </button>
 
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/timetable" element={<TimetableGeneration />} />
-          <Route path="/learning" element={<LearningResources />} />
-          <Route path="/wellness" element={<UserWellness />} />
-          <Route path="/progress" element={<ProgressTracking />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
-    </Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/timetable" element={<TimetableGeneration />} />
+        <Route path="/learning" element={<LearningResources />} />
+        <Route path="/wellness" element={<UserWellness />} />
+        <Route path="/progress" element={<ProgressTracking />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </div>
   )
 }
 
