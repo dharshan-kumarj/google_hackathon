@@ -15,7 +15,7 @@ app = FastAPI(title="Google OAuth API")
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # Vite default port
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -24,7 +24,7 @@ app.add_middleware(
 # Google OAuth configuration
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI", "http://localhost:8000/auth/google/callback")
+GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI", "https://studybuddy-backend-du42.onrender.com/auth/google/callback")
 
 # Google OAuth URLs
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
@@ -86,7 +86,7 @@ async def google_callback_get(code: str = None, error: str = None):
     """
     # Handle error from Google
     if error:
-        frontend_url = f"http://localhost:5173?error={error}"
+        frontend_url = f"https://studybuddy-asi5.onrender.com?error={error}"
         return RedirectResponse(url=frontend_url)
     
     if not code:
@@ -129,16 +129,16 @@ async def google_callback_get(code: str = None, error: str = None):
                 "user_name": user_info.get("name"),
                 "user_picture": user_info.get("picture"),
             }
-            frontend_url = f"http://localhost:5173?{urlencode(params)}"
+            frontend_url = f"https://studybuddy-asi5.onrender.com?{urlencode(params)}"
             return RedirectResponse(url=frontend_url)
             
         except httpx.HTTPStatusError as e:
             error_msg = f"Google API error: {e.response.text}"
-            frontend_url = f"http://localhost:5173?error={error_msg}"
+            frontend_url = f"https://studybuddy-asi5.onrender.com?error={error_msg}"
             return RedirectResponse(url=frontend_url)
         except Exception as e:
             error_msg = f"Internal error: {str(e)}"
-            frontend_url = f"http://localhost:5173?error={error_msg}"
+            frontend_url = f"https://studybuddy-asi5.onrender.com?error={error_msg}"
             return RedirectResponse(url=frontend_url)
 
 
