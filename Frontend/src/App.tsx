@@ -132,6 +132,7 @@ function AuthenticatedApp({ loading, error, login, logout, isAuthenticated }: an
         <Route path="/learning" element={<LearningResources />} />
         <Route path="/wellness" element={<UserWellness />} />
         <Route path="/progress" element={<ProgressTracking />} />
+        <Route path="/test" element={<TestDashboard />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
