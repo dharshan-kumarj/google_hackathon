@@ -57,12 +57,12 @@ const Dashboard: React.FC = () => {
     <div className="dashboard-main min-vh-100">
       <div className="container-fluid py-4">
         {/* Header Section */}
-        <div className="row mb-4 animate-fade-in">
+        <div className="row mb-5 animate-fade-in">
           <div className="col-12">
             <div className="d-flex justify-content-between align-items-center flex-wrap">
               <div>
-                <h1 className="dashboard-greeting mb-2">{getGreeting()}, {userName} �</h1>
-                <p className="text-muted mb-0">
+                <h1 className="dashboard-greeting mb-2">{getGreeting()}, {userName} ✨</h1>
+                <p className="text-white-50 mb-0" style={{ fontSize: '1rem', fontWeight: '400' }}>
                   {currentTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
               </div>
@@ -79,43 +79,76 @@ const Dashboard: React.FC = () => {
           {/* Left Column */}
           <div className="col-12 col-lg-8">
             {/* Stats Cards Row */}
-            <div className="row g-3 mb-4">
+            <div className="row g-4 mb-5">
               <div className="col-6 col-md-3">
                 <div className="stat-card card border-0 shadow-sm h-100">
-                  <div className="card-body">
-                    <p className="stat-label text-muted mb-2">Study Hours</p>
-                    <h3 className="stat-value mb-1">{studyHours}</h3>
+                  <div className="card-body p-4">
+                    <div className="d-flex align-items-center mb-3">
+                      <div className="stat-icon me-3">
+                        <i className="bi bi-clock-history text-primary fs-3"></i>
+                      </div>
+                      <div>
+                        <p className="stat-label text-muted mb-1">Study Hours</p>
+                        <h3 className="stat-value mb-0">{studyHours}</h3>
+                      </div>
+                    </div>
                     <small className="text-muted">Hours</small>
                   </div>
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className="stat-card card border-0 shadow-sm h-100">
-                  <div className="card-body">
-                    <p className="stat-label text-muted mb-2">Focus Score</p>
-                    <h3 className="stat-value mb-1">{focusScore}</h3>
-                    <div className="progress" style={{ height: '4px' }}>
-                      <div className="progress-bar bg-primary" style={{ width: `${focusScore}%` }}></div>
+                  <div className="card-body p-4">
+                    <div className="d-flex align-items-center mb-3">
+                      <div className="stat-icon me-3">
+                        <i className="bi bi-bullseye text-success fs-3"></i>
+                      </div>
+                      <div>
+                        <p className="stat-label text-muted mb-1">Focus Score</p>
+                        <h3 className="stat-value mb-0">{focusScore}</h3>
+                      </div>
+                    </div>
+                    <div className="progress" style={{ height: '6px', borderRadius: '3px' }}>
+                      <div 
+                        className="progress-bar" 
+                        style={{ 
+                          width: `${focusScore}%`,
+                          background: 'linear-gradient(90deg, #667eea, #764ba2)',
+                          borderRadius: '3px'
+                        }}
+                      ></div>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className="stat-card card border-0 shadow-sm h-100">
-                  <div className="card-body">
-                    <p className="stat-label text-muted mb-2">Wellness</p>
-                    <h3 className="stat-value mb-1">{wellnessScore}</h3>
+                  <div className="card-body p-4">
+                    <div className="d-flex align-items-center mb-3">
+                      <div className="stat-icon me-3">
+                        <i className="bi bi-heart-pulse text-danger fs-3"></i>
+                      </div>
+                      <div>
+                        <p className="stat-label text-muted mb-1">Wellness</p>
+                        <h3 className="stat-value mb-0">{wellnessScore}</h3>
+                      </div>
+                    </div>
                     <small className="text-muted">Score</small>
                   </div>
                 </div>
               </div>
               <div className="col-6 col-md-3">
                 <div className="stat-card card border-0 shadow-sm h-100">
-                  <div className="card-body">
-                    <p className="stat-label text-muted mb-2">Rating</p>
-                    <h3 className="stat-value mb-1">
-                      {userStars} <i className="bi bi-star-fill text-warning fs-6"></i>
-                    </h3>
+                  <div className="card-body p-4">
+                    <div className="d-flex align-items-center mb-3">
+                      <div className="stat-icon me-3">
+                        <i className="bi bi-star-fill text-warning fs-3"></i>
+                      </div>
+                      <div>
+                        <p className="stat-label text-muted mb-1">Rating</p>
+                        <h3 className="stat-value mb-0">{userStars}</h3>
+                      </div>
+                    </div>
                     <small className="text-muted">Stars</small>
                   </div>
                 </div>

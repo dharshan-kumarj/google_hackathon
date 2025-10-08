@@ -34,33 +34,33 @@ const LearningResources: React.FC = () => {
       
       <div className="container py-5">
         <div className="row justify-content-center">
-          <div className="col-12 col-md-10 col-lg-8 col-xl-7">
-            <div className="card border-0 shadow-lg learning-card">
+          <div className="col-12 col-md-10 col-lg-8 col-xl-6">
+            <div className="card border-0 learning-card">
               <div className="card-body p-4 p-md-5">
-                <div className="text-center mb-4">
-                  <div className="learning-icon mb-3">
-                    <i className="bi bi-book text-primary" style={{ fontSize: '3rem' }}></i>
+                <div className="text-center mb-5">
+                  <div className="learning-icon mb-4">
+                    <i className="bi bi-book" style={{ fontSize: '2.5rem' }}></i>
                   </div>
                   <h1 className="h2 fw-bold mb-3">Discover Learning Resources</h1>
-                  <p className="text-muted">
+                  <p className="text-muted px-md-4">
                     What do you want to learn? Get curated resources tailored to your goals and style.
                   </p>
                 </div>
                 
                 <form onSubmit={handleSubmit}>
-                  <div className="mb-4">
-                    <label htmlFor="learningInput" className="form-label fw-medium">
-                      <i className="bi bi-lightbulb me-2 text-warning"></i>
+                  <div className="mb-5">
+                    <label htmlFor="learningInput" className="form-label">
+                      <i className="bi bi-lightbulb me-2" style={{ color: '#f59e0b' }}></i>
                       Describe your learning goals
                     </label>
                     <textarea
                       id="learningInput"
-                      className="form-control form-control-lg"
+                      className="form-control"
                       placeholder="Example: 'Beginner in React, want video tutorials and hands-on projects. Interested in hooks and state management.'"
                       value={learningInput}
                       onChange={(e) => setLearningInput(e.target.value)}
-                      rows={8}
-                      style={{ resize: 'vertical' }}
+                      rows={6}
+                      style={{ resize: 'vertical', minHeight: '120px' }}
                     />
                     <div className="form-text">
                       <i className="bi bi-info-circle me-1"></i>
