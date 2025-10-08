@@ -10,17 +10,21 @@ const UserWellness: React.FC = () => {
       <button 
         onClick={() => navigate('/')}
         className="back-button"
+        aria-label="Back to Dashboard"
+        tabIndex={0}
       >
         ← Back to Dashboard
       </button>
       <div className="wellness-content">
         <h1 className="page-title">User Wellness</h1>
         <p className="page-subtitle">
-          Track and improve your mental and physical wellbeing
+         Set wellness goals, track your mood, and get tips for a healthier study-life balance.
         </p>
         
         <div className="wellness-placeholder">
-          <p>Wellness tracking features coming soon...</p>
+            <p>
+              <span style={{fontWeight:600}}>Coming Soon:</span> Track your mood, set wellness goals, and get actionable tips for a healthier study-life balance. Wellness insights will be available here soon!
+            </p>
         </div>
       </div>
     </div>
