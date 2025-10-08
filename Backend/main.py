@@ -15,7 +15,7 @@ app = FastAPI(title="Google OAuth API")
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # Vite default port
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -24,7 +24,7 @@ app.add_middleware(
 # Google OAuth configuration
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI", "http://localhost:8000/auth/google/callback")
+GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI", "https://studybuddy-backend-du42.onrender.com/auth/google/callback")
 
 # Google OAuth URLs
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
@@ -33,6 +33,23 @@ GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v2/userinfo"
 
 class TokenRequest(BaseModel):
     code: str
+
+
+class TimetableInput(BaseModel):
+    user_id: str
+    subjects: list[str]
+    study_hours_per_day: int
+    exam_dates: Optional[dict] = None
+    preferences: Optional[dict] = None
+
+
+class WellnessInput(BaseModel):
+    user_id: str
+    stress_level: Optional[int] = None
+    sleep_hours: Optional[float] = None
+    activity_level: Optional[str] = None
+    mood: Optional[str] = None
+    notes: Optional[str] = None
 
 
 @app.get("/")
@@ -69,7 +86,7 @@ async def google_callback_get(code: str = None, error: str = None):
     """
     # Handle error from Google
     if error:
-        frontend_url = f"http://localhost:5173?error={error}"
+        frontend_url = f"https://studybuddy-asi5.onrender.com?error={error}"
         return RedirectResponse(url=frontend_url)
     
     if not code:
@@ -112,16 +129,16 @@ async def google_callback_get(code: str = None, error: str = None):
                 "user_name": user_info.get("name"),
                 "user_picture": user_info.get("picture"),
             }
-            frontend_url = f"http://localhost:5173?{urlencode(params)}"
+            frontend_url = f"https://studybuddy-asi5.onrender.com?{urlencode(params)}"
             return RedirectResponse(url=frontend_url)
             
         except httpx.HTTPStatusError as e:
             error_msg = f"Google API error: {e.response.text}"
-            frontend_url = f"http://localhost:5173?error={error_msg}"
+            frontend_url = f"https://studybuddy-asi5.onrender.com?error={error_msg}"
             return RedirectResponse(url=frontend_url)
         except Exception as e:
             error_msg = f"Internal error: {str(e)}"
-            frontend_url = f"http://localhost:5173?error={error_msg}"
+            frontend_url = f"https://studybuddy-asi5.onrender.com?error={error_msg}"
             return RedirectResponse(url=frontend_url)
 
 
@@ -210,6 +227,88 @@ async def get_user_info(access_token: str):
                 status_code=e.response.status_code,
                 detail="Invalid or expired token"
             )
+
+
+@app.post("/rag/timetable_input")
+async def timetable_input(timetable_data: TimetableInput):
+    """
+    Endpoint to receive timetable input from frontend and forward to RAG model
+    """
+    try:
+        # TODO: Replace with your actual RAG model endpoint URL
+        RAG_MODEL_URL = os.getenv("RAG_TIMETABLE_URL", "http://localhost:8001/generate_timetable")
+        
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            # Forward the data to the RAG model endpoint
+            response = await client.post(
+                RAG_MODEL_URL,
+                json=timetable_data.model_dump()
+            )
+            response.raise_for_status()
+            result = response.json()
+            
+            return {
+                "success": True,
+                "message": "Timetable generation request processed",
+                "data": result
+            }
+            
+    except httpx.HTTPStatusError as e:
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"RAG model error: {e.response.text}"
+        )
+    except httpx.RequestError as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Could not connect to RAG model service: {str(e)}"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Internal error: {str(e)}"
+        )
+
+
+@app.post("/rag/wellness")
+async def wellness_input(wellness_data: WellnessInput):
+    """
+    Endpoint to receive wellness input from frontend and forward to RAG model
+    """
+    try:
+        # TODO: Replace with your actual RAG model endpoint URL
+        RAG_MODEL_URL = os.getenv("RAG_WELLNESS_URL", "http://localhost:8001/analyze_wellness")
+        
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            # Forward the data to the RAG model endpoint
+            response = await client.post(
+                RAG_MODEL_URL,
+                json=wellness_data.model_dump()
+            )
+            response.raise_for_status()
+            result = response.json()
+            
+            return {
+                "success": True,
+                "message": "Wellness analysis request processed",
+                "data": result
+            }
+            
+    except httpx.HTTPStatusError as e:
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"RAG model error: {e.response.text}"
+        )
+    except httpx.RequestError as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Could not connect to RAG model service: {str(e)}"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Internal error: {str(e)}"
+        )
 
 
 if __name__ == "__main__":
